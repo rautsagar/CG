@@ -19,7 +19,13 @@ void draw() {
     rotateX(rx); rotateY(ry); 
     showFrame();
     if(twistFree) {
-      
+      pushMatrix();
+        translate(l,0,0); /*rotateX(s*a1);*/ rotateY(-(s*b1));  showLink();
+        s = s/5;
+        translate(l,w/2,0); rotateY(-(s/2*a2)); rotateZ(s*2*b2); showLink2(); 
+        translate(l,0,0); rotateY(-(s/2*a3)); rotateZ(s*2*b3);  showLink2();
+       s = 5*s; 
+      popMatrix();
        // IMPLEMENT YOUR SOLUTION HERE TO ACHIEVE A TWIST FREE MOTION
        // The idea is to let a1, a2, a3 control angles of a direction W1, W2, W3 around the local X-axis
        // and to let the b1, b2, b3 control the amount of rotation around W.
@@ -30,9 +36,9 @@ void draw() {
        }
     else {
       pushMatrix();
-        translate(1,0,0); rotateX(s*a1); rotateY(s*b1);  showLink();
-        translate(1,0,0); rotateX(s*a2); rotateY(s*b2);  showLink(); 
-        translate(1,0,0); rotateX(s*a3); rotateY(s*b3);  showLink(); 
+        translate(l,0,0); rotateX(s*a1); rotateY(s*b1);  showLink();
+        translate(l,0,0); rotateX(s*a2); rotateY(s*b2);  showLink(); 
+        translate(l,0,0); rotateX(s*a3); rotateY(s*b3);  showLink(); 
       popMatrix();
       }
   popMatrix();
@@ -52,6 +58,7 @@ void showFrame() {
   }
 
 void showLink() {pushMatrix(); translate(l/2,0,0); stroke(0); fill(yellow); box(l, w, 3*w); popMatrix(); }
+void showLink2() {pushMatrix(); translate(l/2,-(w/2),0); stroke(0); fill(yellow); box(l, w, 3*w); popMatrix(); }
   
 void mouseDragged() {
   if (!keyPressed) {rx-=PI*(mouseY-pmouseY)/width; ry-=PI*(mouseX-pmouseX)/height;}

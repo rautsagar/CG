@@ -8,7 +8,7 @@ float cx=1, cy=2;
 
 void setup() {
   myFace = loadImage("data/Sagar.jpg");
-  frameImage = loadImage("data/frame.jpg");  // load image from file Sagar.jpg in folder data
+  frameImage = loadImage("data/cafe.jpg");  // load image from file Sagar.jpg in folder data
   size(900, 900, P3D);
   }
 
@@ -25,15 +25,21 @@ void draw() {
     fill(yellow); pushMatrix(); translate(0,0,-.01); box(40,40,.01); popMatrix(); // floor
     fill(magenta); pushMatrix(); translate(cx,cy,0); sphere(0.1); popMatrix();
     
-    pushMatrix(); 
-    translate(0,-20,10);
-    rotateX(PI/2); 
+    pushMatrix();
+    fill(white); 
+    translate(0,-20,12.5);
+    rotateX(PI/2);
+    //draw wall
+    box(40,25,.01);
+    translate(0,0,-0.1);
+   //paint poster 
     beginShape();
     texture(frameImage);
-    vertex(-5, -5, 0,300,300);
-    vertex(5, -5, 0,0,300);
-    vertex(5, 5, 0,0,0);
-    vertex(-5, 5, 0,300,0);
+    
+    vertex(-5, 5, 0,0,0);
+    vertex(5, 5, 0,1000,0);
+    vertex(5, -5, 0,1000,1000);
+    vertex(-5, -5, 0,0,1000);
     endShape(CLOSE);
    
     popMatrix();
@@ -69,7 +75,7 @@ void mouseDragged() {
   }  
   
 void mouseWheel(MouseEvent event) {
-  dz -= 10*event.getAmount();   
+  dz -= 20*event.getAmount();   
   change=true;
   }
 
@@ -113,7 +119,7 @@ void displayFooter() { // Displays help text at the bottom
     scribeFooter(guide,1); 
     scribeFooter(menu,0); 
     }
-String title ="CS6491-2013F-P13b: Chair", name ="Sagar Raut",
+String title ="CS6491-2013F-P13b: Restaurant", name ="Sagar Raut",
        menu="?:help, !:picture, ~:(start/stop) recording, Q:quit",
        guide="drag:rotate, wheel:approach, A:animate, T:twist, L:light, C:center, c+drag:move center "; // user's guide
 

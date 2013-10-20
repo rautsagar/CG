@@ -2,7 +2,7 @@ float dz=0;
 float rx=0.45*TWO_PI, ry=0.06*TWO_PI;    // view angles
 float l=1, w=.2;     // dimensions of boxes
 float a1=TWO_PI/6, b1=TWO_PI/8, a2=TWO_PI/6, b2=TWO_PI/8, a3=TWO_PI/6, b3=TWO_PI/8; 
-Boolean twistFree=false, light=true, animating=true;
+Boolean twistFree=false, light=true, animating=true, extraCredit = false;
 float t=0, s=0;
 
 void setup() {
@@ -18,28 +18,42 @@ void draw() {
     if(light) lights();
     rotateX(rx); rotateY(ry); 
     showFrame();
+    
     if(twistFree) {
+      
+      if(extraCredit){
       pushMatrix();
-        translate(l,0,0); /*rotateX(s*a1);*/ rotateY(-(s*b1));  showLink();
+        translate(l,0,0); rotateY(-(s*b1));  showLink();
         s = s/5;
-        translate(l,w/2,0); rotateY(-(s/2*a2)); rotateZ(s*2*b2); showLink2(); 
+        translate(l,w/2,0); rotateY(-(s/2*a2)); rotateZ(s*2*b2); showLink2();
+        for(int i = 0 ; i < 11; i++){ 
         translate(l,0,0); rotateY(-(s/2*a3)); rotateZ(s*2*b3);  showLink2();
-       s = 5*s; 
-      popMatrix();
-       // IMPLEMENT YOUR SOLUTION HERE TO ACHIEVE A TWIST FREE MOTION
-       // The idea is to let a1, a2, a3 control angles of a direction W1, W2, W3 around the local X-axis
-       // and to let the b1, b2, b3 control the amount of rotation around W.
-       // Each W is orthogonal to the corresponding local X-axis and hence
-       // may be obtained as a version of the local Y-axis rotated around the local X-axis.
-       
-       // My solution is a trivial modification of the five lines below (motion with a twist).
+         
        }
+       s = 5*s;
+       popMatrix();
+       }else{
+         
+         pushMatrix();
+        translate(l,0,0);  rotateY(-(s*b1));  showLink();
+        s = s/5;
+        translate(l,w/2,0); rotateY(-(s/2*a2)); rotateZ(s*2*b2); showLink2();
+       
+        translate(l,0,0); rotateY(-(s/2*a3)); rotateZ(s*2*b3);  showLink2();
+        s = 5*s; 
+        popMatrix();
+       
+       }
+           
+             }
     else {
+      
       pushMatrix();
         translate(l,0,0); rotateX(s*a1); rotateY(s*b1);  showLink();
         translate(l,0,0); rotateX(s*a2); rotateY(s*b2);  showLink(); 
         translate(l,0,0); rotateX(s*a3); rotateY(s*b3);  showLink(); 
       popMatrix();
+      
       }
   popMatrix();
   noLights();
@@ -69,7 +83,7 @@ void mouseDragged() {
   }  
   
 void mouseWheel(MouseEvent event) {
-  dz -= event.getAmount();   
+  dz -= 20*event.getAmount();   
   change=true;
   }
 
@@ -80,6 +94,7 @@ void keyPressed() {
   if(key=='T') twistFree=!twistFree;
   if(key=='L') light=!light;
   if(key=='A') animating=!animating;
+  if(key=='e') extraCredit =! extraCredit;
   change=true;
   }
 

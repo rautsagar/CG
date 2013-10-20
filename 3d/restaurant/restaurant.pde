@@ -7,8 +7,9 @@ float t=0, s=0;
 float cx=1, cy=2;
 
 void setup() {
-  myFace = loadImage("data/Sagar.jpg");  // load image from file Sagar.jpg in folder data
-  size(600, 600, P3D);
+  myFace = loadImage("data/Sagar.jpg");
+  frameImage = loadImage("data/frame.jpg");  // load image from file Sagar.jpg in folder data
+  size(900, 900, P3D);
   }
 
 void draw() {
@@ -23,10 +24,32 @@ void draw() {
     showFrame();
     fill(yellow); pushMatrix(); translate(0,0,-.01); box(40,40,.01); popMatrix(); // floor
     fill(magenta); pushMatrix(); translate(cx,cy,0); sphere(0.1); popMatrix();
-    fill(brown); 
     
-    // place your code for showing a chair here
+    pushMatrix(); 
+    translate(0,-20,10);
+    rotateX(PI/2); 
+    beginShape();
+    texture(frameImage);
+    vertex(-5, -5, 0,300,300);
+    vertex(5, -5, 0,0,300);
+    vertex(5, 5, 0,0,0);
+    vertex(-5, 5, 0,300,0);
+    endShape(CLOSE);
+   
+    popMatrix();
+    
+    
+    
+    // Draw a restaurant with 5 booths
     Booth booth1 = new Booth();
+    booth1.show();
+    translate(10,10,0);
+    booth1.show();
+    translate(0,20,0);
+    booth1.show();
+    translate(-20,0,0);
+    booth1.show();
+    translate(0,-20,0);
     booth1.show();
     
   popMatrix();
@@ -46,7 +69,7 @@ void mouseDragged() {
   }  
   
 void mouseWheel(MouseEvent event) {
-  dz -= event.getAmount();   
+  dz -= 10*event.getAmount();   
   change=true;
   }
 
@@ -65,7 +88,7 @@ void keyPressed() {
 // ************************************ IMAGES & VIDEO 
 int pictureCounter=0, frameCounter=0;
 Boolean filming=false, change=false;
-PImage myFace; //  data/pic.jpg in sketch folder
+PImage myFace, frameImage; //  data/pic.jpg in sketch folder
 void snapPicture() {saveFrame("PICTURES/P"+nf(pictureCounter++,3)+".jpg"); }
 
 // ******************************************COLORS 

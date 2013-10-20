@@ -1,5 +1,5 @@
 float dz=0;
-float rx=0.01*TWO_PI, ry=-0.04*TWO_PI;    // view angles
+float rx=-0.1*TWO_PI, ry=-0.04*TWO_PI;    // view angles
 float l=1, w=.2;     // dimensions of boxes
 float a1=TWO_PI/6, b1=TWO_PI/8, a2=TWO_PI/6, b2=TWO_PI/8, a3=TWO_PI/6, b3=TWO_PI/8; 
 Boolean twistFree=false, light=true, animating=true, center=false;
@@ -15,17 +15,19 @@ void draw() {
   background(255);
   pushMatrix();
     translate(width/2,height/2,dz);
-    scale(100);
+    scale(50);
     if(light) lights();
     rotateX(rx); rotateY(ry); 
     rotateX(PI/2);
     if(center) translate(-cx,-cy,0);
     showFrame();
-    fill(yellow); pushMatrix(); translate(0,0,-.01); box(4,4,.01); popMatrix(); // floor
+    fill(yellow); pushMatrix(); translate(0,0,-.01); box(40,40,.01); popMatrix(); // floor
     fill(magenta); pushMatrix(); translate(cx,cy,0); sphere(0.1); popMatrix();
     fill(brown); 
     
     // place your code for showing a chair here
+    Booth booth1 = new Booth();
+    booth1.show();
     
   popMatrix();
   noLights();
